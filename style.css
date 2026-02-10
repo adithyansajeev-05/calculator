@@ -1,0 +1,217 @@
+:root {
+    --bg-color: #021749;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --btn-bg: rgba(255, 255, 255, 0.03);
+    --btn-hover: rgba(255, 255, 255, 0.1);
+    --btn-active: rgba(255, 255, 255, 0.15);
+    --accent-color: #38bdf8;
+    --accent-hover: #0ea5e9;
+    --function-color: #f472b6;
+    --operator-color: #818cf8;
+    --operator-hover: #6366f1;
+    --equal-bg: linear-gradient(135deg, #2c2e97 0%, #a855f7 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Background Effects */
+.background-orbs {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.4;
+    animation: float 20s infinite ease-in-out;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: #000296;
+    top: -100px;
+    left: -100px;
+}
+
+.orb-2 {
+    width: 500px;
+    height: 500px;
+    background: #000000;
+    bottom: -150px;
+    right: -100px;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, 50px); }
+}
+
+/* Main Container */
+.calculator-container {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.calculator-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    padding: 30px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Display */
+.display-container {
+    background: rgba(7, 7, 7, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 25px;
+    text-align: right;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.previous-operand {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    min-height: 1.5rem;
+    word-break: break-all;
+}
+
+.current-operand {
+    color: var(--text-primary);
+    font-size: 2.5rem;
+    font-weight: 600;
+    word-break: break-all;
+    line-height: 1;
+}
+
+/* Button Grid */
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.btn {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: var(--btn-bg);
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 500;
+    border-radius: 20px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid transparent;
+}
+
+.btn:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+    transform: translateY(0);
+    background: var(--btn-active);
+}
+
+.btn-function {
+    color: var(--function-color);
+    background: rgba(244, 114, 182, 0.1);
+}
+
+.btn-function:hover {
+    background: rgba(244, 114, 182, 0.2);
+}
+
+.btn-operator {
+    color: var(--operator-color);
+    background: rgba(129, 140, 248, 0.1);
+    font-size: 1.4rem;
+}
+
+.btn-operator:hover {
+    background: rgba(129, 140, 248, 0.2);
+}
+
+.btn-zero {
+    grid-column: span 2;
+}
+
+.btn-equal {
+    grid-column: span 1; /* Was span 2 in some designs, grid 4x5 allows straight column */
+    background: var(--equal-bg);
+    color: rgb(255, 255, 255);
+    box-shadow: 0 4px 15px rgba(111, 112, 202, 0.35);
+}
+
+.btn-equal:hover {
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    background: var(--equal-bg); /* gradient needed again to override specific hover */
+    filter: brightness(1.1);
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+    .calculator-container {
+        padding: 10px;
+    }
+    
+    .calculator-card {
+        padding: 20px;
+        border-radius: 24px;
+    }
+    
+    .btn {
+        padding: 16px;
+        font-size: 1.1rem;
+        border-radius: 16px;
+    }
+    
+    .current-operand {
+        font-size: 2rem;
+    }
+}
